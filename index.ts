@@ -23,7 +23,13 @@ app.use(
     contentSecurityPolicy: {
       directives: {
         defaultSrc: ["'self'"],
-        scriptSrc: ["'self'", "'unsafe-inline'", "https://unpkg.com"],
+        scriptSrc: [
+          "'self'",
+          "'unsafe-inline'",
+          "'unsafe-hashes'",
+          "https://unpkg.com",
+        ],
+        scriptSrcAttr: ["'unsafe-inline'"],
         styleSrc: ["'self'", "'unsafe-inline'", "https://unpkg.com"],
         imgSrc: ["'self'", "data:", "https:", "http:", "blob:"],
         connectSrc: ["'self'", "https://unpkg.com"],
@@ -78,7 +84,10 @@ app.get("/api/log/:date", (req, res) => {
   const logData = JSON.parse(fileData);
   res.json({
     message: "ok!",
-    data: logData.map((log: ILog) => log.id),
+    data: logData.map((log: ILog) => ({
+      id: log.id,
+      name: log.name,
+    })),
   });
 });
 app.get("/api/log/:date/:id", (req, res) => {
