@@ -232,6 +232,13 @@ function displayMap(participantData) {
     addMarkersToMap(participantData.maps);
     displayLocationStats(participantData.maps);
   }
+
+  // Fix map sizing issue by invalidating size after a short delay
+  setTimeout(() => {
+    if (map) {
+      map.invalidateSize();
+    }
+  }, 100);
 }
 
 function displayParticipantInfo(data) {
@@ -454,9 +461,14 @@ function refreshLogs() {
 }
 
 function centerMap() {
-  if (map && markers.length > 0) {
-    const group = new L.featureGroup(markers);
-    map.fitBounds(group.getBounds().pad(0.1));
+  if (map) {
+    // Invalidate size first to ensure proper rendering
+    map.invalidateSize();
+    
+    if (markers.length > 0) {
+      const group = new L.featureGroup(markers);
+      map.fitBounds(group.getBounds().pad(0.1));
+    }
   }
 }
 

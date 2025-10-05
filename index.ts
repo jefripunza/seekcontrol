@@ -64,6 +64,11 @@ interface ILog {
 }
 
 const logPath = path.join(__dirname, "logs");
+// jika belum ada folder logs, buat folder logs
+if (!fs.existsSync(logPath)) {
+  fs.mkdirSync(logPath);
+}
+
 app.get("/api/logs", (_req, res) => {
   const logFiles = fs.readdirSync(logPath);
   res.json({
@@ -129,10 +134,6 @@ app.post("/api/location", (req, res) => {
   }
 
   // log file ke folder logs
-  const logPath = path.join(__dirname, "logs");
-  if (!fs.existsSync(logPath)) {
-    fs.mkdirSync(logPath);
-  }
   const now = new Date();
   const logFile = path.join(
     logPath,

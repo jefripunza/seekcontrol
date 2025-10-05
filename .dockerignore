@@ -1,0 +1,4 @@
+node_modules
+logs
+public_compiled.ts
+panel_compiled.ts
