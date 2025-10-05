@@ -36,5 +36,8 @@ report.[0-9]_.[0-9]_.[0-9]_.[0-9]_.json
 bun.lock
 bun.lockb
 
+seekcontrol
+seekcontrol.exe
+
 panel_compiled.ts
 public_compiled.ts

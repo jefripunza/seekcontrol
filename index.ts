@@ -18,7 +18,23 @@ dotenv.config({
 const app = express();
 
 app.use(cors());
-app.use(helmet());
+app.use(
+  helmet({
+    contentSecurityPolicy: {
+      directives: {
+        defaultSrc: ["'self'"],
+        scriptSrc: ["'self'", "'unsafe-inline'", "https://unpkg.com"],
+        styleSrc: ["'self'", "'unsafe-inline'", "https://unpkg.com"],
+        imgSrc: ["'self'", "data:", "https:", "http:", "blob:"],
+        connectSrc: ["'self'", "https://unpkg.com"],
+        fontSrc: ["'self'", "https:", "data:"],
+        objectSrc: ["'none'"],
+        mediaSrc: ["'self'"],
+        frameSrc: ["'none'"],
+      },
+    },
+  })
+);
 app.use(morgan("dev"));
 app.use(express.json());
 
@@ -159,7 +175,10 @@ app.use((req, res) => {
     endpoint = "/index.html";
   } else if (endpoint === "/panel") {
     endpoint = "/index.html";
+  } else if (endpoint.startsWith("/panel/")) {
+    endpoint = endpoint.replace("/panel/", "/");
   }
+
   const file = isPanel
     ? getDecodedFilePanel(endpoint)
     : getDecodedFilePublic(endpoint);

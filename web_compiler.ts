@@ -150,13 +150,43 @@ const publicPath = path.join(__dirname, "public");
 const publicFiles: IFile[] = [];
 const panelFiles: IFile[] = [];
 
+// Function to read files into specific array
+function readFilesIntoArray(dir: string, baseDir: string, targetArray: IFile[]) {
+  const files = fs.readdirSync(dir);
+  files.forEach((file) => {
+    const filePath = path.join(dir, file);
+    const fileStat = fs.statSync(filePath);
+
+    if (fileStat.isDirectory()) {
+      readFilesIntoArray(filePath, baseDir, targetArray);
+    } else {
+      // Get relative path from base folder
+      const relativePath = path.relative(baseDir, filePath).replace(/\\/g, "/");
+
+      // Read file content and convert everything to base64
+      const contentType = getContentType(filePath);
+      const buffer = fs.readFileSync(filePath);
+      const content = buffer.toString("base64");
+
+      targetArray.push({
+        path: `/${relativePath}`,
+        content: content,
+        name: file,
+        type: contentType,
+      });
+
+      console.log(`Added: ${relativePath} (${contentType})`);
+    }
+  });
+}
+
 // Read all files from panel directory
 console.log("Reading files from panel directory...");
-readFilesSync(panelPath, panelPath);
+readFilesIntoArray(panelPath, panelPath, panelFiles);
 
 // Read all files from public directory
 console.log("Reading files from public directory...");
-readFilesSync(publicPath, publicPath);
+readFilesIntoArray(publicPath, publicPath, publicFiles);
 
 // Save to panel_compiled.ts
 const panelCompiledPath = path.join(__dirname, "panel_compiled.ts");

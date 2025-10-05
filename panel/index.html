@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Giveaway Logs Panel</title>
+    <link rel="stylesheet" href="panel/style.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1>📊 Giveaway Logs Panel</h1>
+            <p class="subtitle">Monitor and track giveaway participants</p>
+        </header>
+
+        <div class="main-content">
+            <!-- Navigation Breadcrumb -->
+            <nav class="breadcrumb" id="breadcrumb">
+                <span class="breadcrumb-item active" data-step="logs">📅 Logs</span>
+                <span class="breadcrumb-separator">></span>
+                <span class="breadcrumb-item" data-step="ids">🆔 IDs</span>
+                <span class="breadcrumb-separator">></span>
+                <span class="breadcrumb-item" data-step="map">🗺️ Map</span>
+            </nav>
+
+            <!-- Loading Indicator -->
+            <div class="loading" id="loading">
+                <div class="spinner"></div>
+                <p>Loading data...</p>
+            </div>
+
+            <!-- Error Message -->
+            <div class="error hidden" id="error">
+                <h3>❌ Error</h3>
+                <p id="errorMessage"></p>
+                <button onclick="goBack()" class="btn btn-secondary">Go Back</button>
+            </div>
+
+            <!-- Logs Table -->
+            <div class="section" id="logsSection">
+                <div class="section-header">
+                    <h2>📅 Available Log Dates</h2>
+                    <button onclick="refreshLogs()" class="btn btn-primary">🔄 Refresh</button>
+                </div>
+                <div class="table-container">
+                    <table class="data-table" id="logsTable">
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="logsTableBody">
+                            <!-- Logs will be populated here -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- IDs Table -->
+            <div class="section hidden" id="idsSection">
+                <div class="section-header">
+                    <h2>🆔 Participant IDs for <span id="selectedDate"></span></h2>
+                    <button onclick="goBack()" class="btn btn-secondary">← Back to Logs</button>
+                </div>
+                <div class="table-container">
+                    <table class="data-table" id="idsTable">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="idsTableBody">
+                            <!-- IDs will be populated here -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Map Section -->
+            <div class="section hidden" id="mapSection">
+                <div class="section-header">
+                    <h2>🗺️ Location Tracking for ID: <span id="selectedId"></span></h2>
+                    <div class="map-controls">
+                        <button onclick="goBack()" class="btn btn-secondary">← Back to IDs</button>
+                        <button onclick="centerMap()" class="btn btn-primary">🎯 Center Map</button>
+                    </div>
+                </div>
+                
+                <div class="participant-info" id="participantInfo">
+                    <!-- Participant details will be shown here -->
+                </div>
+
+                <div class="map-container">
+                    <div id="map"></div>
+                </div>
+
+                <div class="location-stats" id="locationStats">
+                    <!-- Location statistics will be shown here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="panel/script.js"></script>
+</body>
+</html>
