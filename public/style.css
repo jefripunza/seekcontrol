@@ -1,0 +1,459 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1.6;
+    color: #333;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* Header Styles */
+.header {
+    text-align: center;
+    margin-bottom: 40px;
+    background: rgba(255, 255, 255, 0.95);
+    padding: 30px;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(10px);
+}
+
+.header h1 {
+    font-size: 2.5rem;
+    color: #2c3e50;
+    margin-bottom: 10px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.subtitle {
+    font-size: 1.2rem;
+    color: #e74c3c;
+    font-weight: 600;
+}
+
+/* Main Content */
+.main-content {
+    display: grid;
+    gap: 30px;
+}
+
+/* Prize Section */
+.prize-section {
+    background: rgba(255, 255, 255, 0.95);
+    padding: 30px;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+    align-items: center;
+}
+
+.motorcycle-placeholder {
+    background: linear-gradient(45deg, #f39c12, #e67e22);
+    color: white;
+    padding: 60px 20px;
+    text-align: center;
+    border-radius: 15px;
+    font-size: 2rem;
+    font-weight: bold;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+}
+
+.prize-details h2 {
+    color: #2c3e50;
+    margin-bottom: 20px;
+    font-size: 1.8rem;
+}
+
+.prize-features {
+    list-style: none;
+}
+
+.prize-features li {
+    padding: 8px 0;
+    font-size: 1.1rem;
+    color: #27ae60;
+    font-weight: 500;
+}
+
+/* Trust Indicators */
+.credibility-section {
+    background: rgba(255, 255, 255, 0.95);
+    padding: 30px;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+.credibility-section h3 {
+    text-align: center;
+    color: #2c3e50;
+    margin-bottom: 25px;
+    font-size: 1.5rem;
+}
+
+.trust-indicators {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+}
+
+.trust-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 15px;
+    padding: 20px;
+    background: #f8f9fa;
+    border-radius: 15px;
+    border-left: 4px solid #3498db;
+}
+
+.trust-icon {
+    font-size: 2rem;
+    flex-shrink: 0;
+}
+
+.trust-item strong {
+    color: #2c3e50;
+    display: block;
+    margin-bottom: 5px;
+}
+
+.trust-item p {
+    color: #666;
+    font-size: 0.9rem;
+}
+
+/* Participation Section */
+.participation-section {
+    background: rgba(255, 255, 255, 0.95);
+    padding: 30px;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+.participation-section h3 {
+    color: #2c3e50;
+    margin-bottom: 20px;
+    font-size: 1.5rem;
+}
+
+.requirements p {
+    padding: 8px 0;
+    font-size: 1.1rem;
+    color: #27ae60;
+}
+
+/* Action Section */
+.action-section {
+    background: rgba(255, 255, 255, 0.95);
+    padding: 30px;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.countdown {
+    margin-bottom: 30px;
+}
+
+.countdown p {
+    font-size: 1.2rem;
+    color: #e74c3c;
+    margin-bottom: 10px;
+    font-weight: 600;
+}
+
+.countdown-timer {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #2c3e50;
+}
+
+.countdown-timer span {
+    background: #e74c3c;
+    color: white;
+    padding: 10px 15px;
+    border-radius: 10px;
+    min-width: 60px;
+}
+
+/* Form Section */
+.participation-form h3 {
+    color: #2c3e50;
+    margin-bottom: 20px;
+}
+
+/* User Info Form */
+.user-info-form {
+    background: #f8f9fa;
+    padding: 25px;
+    border-radius: 15px;
+    margin-bottom: 25px;
+    border: 2px solid #e9ecef;
+}
+
+.user-info-form h4 {
+    color: #2c3e50;
+    margin-bottom: 20px;
+    text-align: center;
+    font-size: 1.2rem;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    color: #2c3e50;
+    font-weight: 600;
+    font-size: 1rem;
+}
+
+.form-group input,
+.form-group textarea {
+    width: 100%;
+    padding: 12px 15px;
+    border: 2px solid #dee2e6;
+    border-radius: 10px;
+    font-size: 1rem;
+    font-family: inherit;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    background: white;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: #3498db;
+    box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
+}
+
+.form-group input:required:invalid,
+.form-group textarea:required:invalid {
+    border-color: #e74c3c;
+}
+
+.form-group input:required:valid,
+.form-group textarea:required:valid {
+    border-color: #27ae60;
+}
+
+.form-group textarea {
+    resize: vertical;
+    min-height: 80px;
+}
+
+.form-description {
+    color: #666;
+    margin-bottom: 15px;
+}
+
+.consent-list {
+    text-align: left;
+    max-width: 500px;
+    margin: 0 auto 30px;
+    background: #f8f9fa;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+.consent-list li {
+    padding: 5px 0;
+    color: #555;
+}
+
+.participate-btn {
+    background: linear-gradient(45deg, #e74c3c, #c0392b);
+    color: white;
+    border: none;
+    padding: 18px 40px;
+    font-size: 1.3rem;
+    font-weight: bold;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 8px 25px rgba(231, 76, 60, 0.3);
+    text-transform: uppercase;
+}
+
+.participate-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 35px rgba(231, 76, 60, 0.4);
+}
+
+.participate-btn:active {
+    transform: translateY(0);
+}
+
+/* Success Section */
+.success-section {
+    text-align: center;
+    padding: 40px;
+    background: linear-gradient(45deg, #27ae60, #2ecc71);
+    color: white;
+    border-radius: 20px;
+    margin-top: 20px;
+}
+
+.success-animation {
+    font-size: 4rem;
+    margin-bottom: 20px;
+    animation: bounce 2s infinite;
+}
+
+@keyframes bounce {
+    0%, 20%, 50%, 80%, 100% {
+        transform: translateY(0);
+    }
+    40% {
+        transform: translateY(-30px);
+    }
+    60% {
+        transform: translateY(-15px);
+    }
+}
+
+.success-section h3 {
+    font-size: 2rem;
+    margin-bottom: 20px;
+}
+
+.success-message {
+    font-size: 1.2rem;
+    margin-bottom: 20px;
+    line-height: 1.6;
+}
+
+.delivery-info {
+    font-size: 1.3rem;
+    margin-bottom: 30px;
+    background: rgba(255, 255, 255, 0.2);
+    padding: 15px;
+    border-radius: 10px;
+}
+
+.next-steps {
+    text-align: left;
+    max-width: 400px;
+    margin: 0 auto;
+    background: rgba(255, 255, 255, 0.1);
+    padding: 20px;
+    border-radius: 15px;
+}
+
+.next-steps h4 {
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+.next-steps ol {
+    padding-left: 20px;
+}
+
+.next-steps li {
+    padding: 5px 0;
+}
+
+/* Disclaimer Section */
+.disclaimer-section {
+    background: rgba(255, 255, 255, 0.95);
+    padding: 30px;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+.disclaimer-section h4 {
+    color: #e74c3c;
+    margin-bottom: 20px;
+    font-size: 1.3rem;
+}
+
+.disclaimer {
+    background: #fff3cd;
+    padding: 20px;
+    border-radius: 10px;
+    border-left: 4px solid #ffc107;
+}
+
+.disclaimer ul {
+    margin: 15px 0;
+    padding-left: 20px;
+}
+
+.disclaimer li {
+    padding: 3px 0;
+    color: #856404;
+}
+
+.disclaimer p {
+    color: #856404;
+    margin: 10px 0;
+}
+
+/* Utility Classes */
+.hidden {
+    display: none;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .header h1 {
+        font-size: 2rem;
+    }
+    
+    .prize-section {
+        grid-template-columns: 1fr;
+        text-align: center;
+    }
+    
+    .trust-indicators {
+        grid-template-columns: 1fr;
+    }
+    
+    .countdown-timer {
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    .participate-btn {
+        padding: 15px 30px;
+        font-size: 1.1rem;
+    }
+    
+    .container {
+        padding: 10px;
+    }
+}
+
+@media (max-width: 480px) {
+    .header h1 {
+        font-size: 1.5rem;
+    }
+    
+    .motorcycle-placeholder {
+        padding: 40px 15px;
+        font-size: 1.5rem;
+    }
+    
+    .participate-btn {
+        width: 100%;
+        padding: 15px;
+    }
+}
